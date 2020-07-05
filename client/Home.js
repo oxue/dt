@@ -1,49 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Friends } from '../api/friends.js';
+import Friends from '../api/friends.js';
 
 import FriendItem from './component/FriendItem.js';
-import Button from '@material-ui/core/Button';
+import {
+  Button,
+  List,
+  ListItem
+} from '@material-ui/core';
 
-class Home extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  componentWillMount() {
-    console.log("mount home");
-  }
+function Home(props) {
 
   handleCreateNewFriend = () => {
     Friends.insert({
-      name: "Jane Doe",
-      age: Math.random() * 100,
-      createdAt: new Date(),
       user: Meteor.userId(),
+      createdAt: Date.now()
     });
   }
 
-  render() {
-    console.log(this.props.friends);
-    return (
-      <div>
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={this.handleCreateNewFriend}>+</Button>
-        <ul>
-          {this.props.friends.map((friend) => (
-            <li key={friend._id}>
-              <FriendItem data={friend} />
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Button
+        color="primary"
+        variant="contained"
+        onClick={handleCreateNewFriend}>+</Button>
+      <List>
+        {props.friends.map((friend) => (
+          <FriendItem key={friend._id} data={friend} />
+        ))}
+      </List>
+    </div>
+  );
 }
 
 export default withTracker(() => {

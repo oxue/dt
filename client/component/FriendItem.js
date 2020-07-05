@@ -1,7 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Container from '@material-ui/core/Container'
+import {
+  Container,
+  Typography,
+  Box,
+  Avatar,
+  ListItem,
+  ListItemAvatar,
+  ListItemText
+} from '@material-ui/core'
 import { withRouter } from 'react-router-dom';
+import { getInitials } from '../util/Utils.js'
 
 class FriendItem extends React.Component {
 
@@ -15,13 +24,14 @@ class FriendItem extends React.Component {
 
   render () {
     return (
-      <Container className="frienditem" onClick={this.goToFriendPage}>
-        <div className="frienditem-thumb">
-          <img src='http://placekitten.com/200/200' />
-        </div>
-        <span>Name: {this.props.data.name} </span>
-        <span>Age: {this.props.data.age} </span>
-      </Container>
+      <ListItem display="flex" className="frienditem" onClick={this.goToFriendPage}>
+        <ListItemAvatar className="frienditem-thumb">
+          <Avatar>{getInitials(this.props.data.name)}</Avatar>
+        </ListItemAvatar>
+        <ListItemText
+          primary={this.props.data.name}
+          secondary={this.props.data.app}> </ListItemText>
+      </ListItem>
     )
   }
 }
