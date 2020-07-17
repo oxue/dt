@@ -1,0 +1,3 @@
+if (self.CavalryLogger) { CavalryLogger.start_js(["gfCzA"]); }
+
+__d("bs_caml_splice_call",[],(function(a,b,c,d,e,f){"use strict";a=function(a,b){var c,d;d=b.length;var e=[];for(c=0;c<d-1;++c)e.push(b[c]);b=b[d-1];for(c=0;c<b.length;++c)e.push(b[c]);return a.apply(null,e)};b=function(a,b,c){var d,e;e=c.length;var f=[];for(d=0;d<e-1;++d)f.push(c[d]);c=c[e-1];for(d=0;d<c.length;++d)f.push(c[d]);return a[b].apply(a,f)};f.spliceApply=a;f.spliceObjApply=b}),null);

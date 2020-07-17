@@ -1,2 +1,7 @@
 .frienditem {
 }
+
+.my-item {
+  background: red;
+  margin: 10px;
+}

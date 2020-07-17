@@ -12,7 +12,8 @@ Friends.schema = new SimpleSchema({
   phone:          { type:String, defaultValue:'' },
   instagram:      { type:String, defaultValue:'' },
   notes:          { type:String, defaultValue:'' },
-  bucket:         { type:String, defaultValue:'Date' }
+  bucket:         { type:String, defaultValue:'Date' },
+  avatar:         { type:String, defaultValue:''}
 });
 Friends.attachSchema(Friends.schema);
 
