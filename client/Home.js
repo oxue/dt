@@ -1,49 +1,85 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Friends } from '../api/friends.js';
+import Friends from '../api/friends.js';
 
 import FriendItem from './component/FriendItem.js';
-import Button from '@material-ui/core/Button';
+import {
+  Button,
+  List,
+  ListItem
+} from '@material-ui/core';
 
-class Home extends React.Component {
+import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
+import { Cloudinary } from 'cloudinary-core';
+import $ from 'jquery';
 
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  componentWillMount() {
-    console.log("mount home");
-  }
+function Home(props) {
 
   handleCreateNewFriend = () => {
     Friends.insert({
-      name: "Jane Doe",
-      age: Math.random() * 100,
-      createdAt: new Date(),
       user: Meteor.userId(),
+      createdAt: Date.now()
     });
   }
 
-  render() {
-    console.log(this.props.friends);
-    return (
-      <div>
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={this.handleCreateNewFriend}>+</Button>
-        <ul>
-          {this.props.friends.map((friend) => (
-            <li key={friend._id}>
-              <FriendItem data={friend} />
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
+  handleUploadClick = (e) => {
+
+    const file = event.target.files[0];
+
+    var data = new FormData();
+    data.append('upload_preset', 'syeacsaq');
+    data.append('file', file);
+    data.append('cloud_name', 'dtadmin');
+
+    const config = {
+        method: "POST",
+        body: data
+    };
+
+   var imgurl = "https://api.cloudinary.com/v1_1/dtadmin/image/upload";
+
+   fetch(imgurl, config)
+    .then(responseData => {
+      result = responseData.json().then(data=>{
+        label = Meteor.call("google_vision_call", data.url, (e, r) => {
+          console.log(r);
+        });
+      })
+    });
   }
+
+  return (
+    <div>
+      <Button
+        color="primary"
+        variant="contained"
+        onClick={handleCreateNewFriend}>
+        Create New Friend
+      </Button>
+      <input
+        accept="image/*"
+        id="contained-button-file"
+        multiple
+        type="file"
+        onChange={handleUploadClick}
+        hidden={true}
+      />
+      <Button
+        color="primary"
+        variant="contained">
+        <label htmlFor="contained-button-file">
+        Create From Screenshot
+        </label>
+      </Button>
+
+      <List>
+        {props.friends.map((friend) => (
+          <FriendItem key={friend._id} data={friend} />
+        ))}
+      </List>
+    </div>
+  );
 }
 
 export default withTracker(() => {

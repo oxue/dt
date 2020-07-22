@@ -1,7 +1,21 @@
 .attractiveness-big-text {
   font-size: 48pt;
+  width: 150px;
+  height: 150px;
 }
 
 .attractiveness-slider-container {
-  margin: 30px;
+  margin: 5px;
+}
+
+.detail-category-title {
+  margin-left: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.detail-form-input {
+  margin-left: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }

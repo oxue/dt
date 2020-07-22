@@ -26,3 +26,5 @@ gadicc:blaze-react-component
 accounts-facebook
 facebook-config-ui
 react-meteor-data
+aldeed:collection2
+accounts-password
